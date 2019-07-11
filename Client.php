@@ -6,20 +6,48 @@ use Illuminate\Support\Collection;
 
 class Client {
 
+    /**
+     * NAV host
+     *
+     * @var string
+     */
     protected $host;
 
+    /**
+     * NAV Auth type
+     *
+     * @var string
+     */
     protected $authType;
 
+    /**
+     * NAV Auth username
+     *
+     * @var string
+     */
     protected $username;
 
+    /**
+     * NAV auth password
+     *
+     * @var string
+     */
     protected $password;
+
+    /**
+     * NAV auth token
+     *
+     * @var string
+     */
+    protected $token;
 
     public function __construct(array $config)
     {
-        $this->host     = $config['ntlm_host'];
+        $this->host     = rtrim($config['ntlm_host'], '/');
         $this->authType = $config['ntlm_auth_type'];
         $this->username = $config['ntlm_user'];
         $this->password = $config['ntlm_password'];
+        $this->token    = $config['ntlm_token'];
     }
 
     /**
@@ -32,7 +60,7 @@ class Client {
     {
         $curl = curl_init();
 
-        $this->setCurlOptions($curl, $uri);
+        $this->setCurlOptions($curl, ltrim($uri, '/'));
 
         $output = json_decode(
             curl_exec($curl)
@@ -42,9 +70,7 @@ class Client {
 
         if (isset($output->error)) {
             $this->parseError($output->error);
-        }
-
-        if (!isset($output->value)) {
+        } elseif (!isset($output->value)) {
             return null;
         }
 
@@ -62,6 +88,7 @@ class Client {
     public function fetchOne(string $uri, string $key, $number) : array
     {
         $curl = curl_init();
+        $uri = ltrim($uri, '/');
 
         $this->setCurlOptions($curl, "$uri($key='$number')");
 
@@ -91,10 +118,13 @@ class Client {
             default:
                 curl_setopt($curl, CURLOPT_URL, "$this->host/$uri");
                 curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_NTLM|CURLAUTH_BASIC);
+                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_NTLM | CURLAUTH_BASIC);
                 curl_setopt($curl, CURLOPT_UNRESTRICTED_AUTH, true);
                 curl_setopt($curl, CURLOPT_USERPWD, "$this->username:$this->password");
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            break;
+            case 'token':
+                // todo
             break;
         }
     }

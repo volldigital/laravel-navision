@@ -8,6 +8,8 @@ return [
 
     'ntlm_user' => '',
 
-    'ntlm_password' => ''
+    'ntlm_password' => '',
+
+    'ntlm_token' => ''
 
 ];
