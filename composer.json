@@ -16,5 +16,15 @@
         "psr-4": {
             "VOLLdigital\\LaravelNtlm\\": "src/"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "VOLLdigital\\LaravelNtlm\\LaravelNtlmServiceProvider"
+            ]
+        }
     }
 }
