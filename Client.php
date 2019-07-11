@@ -40,6 +40,10 @@ class Client {
 
         curl_close($curl);
 
+        if (isset($output->error)) {
+            $this->parseError($output->error);
+        }
+
         if (!isset($output->value)) {
             return null;
         }
@@ -50,12 +54,37 @@ class Client {
     }
 
     /**
+     * Fetch one record from NAV
+     *
+     * @param  string $uri
+     * @return Collection|null
+     */
+    public function fetchOne(string $uri, string $key, $number) : array
+    {
+        $curl = curl_init();
+
+        $this->setCurlOptions($curl, "$uri($key='$number')");
+
+        $output = json_decode(
+            curl_exec($curl)
+        );
+
+        curl_close($curl);
+
+        if (isset($output->error)) {
+            $this->parseError($output->error);
+        }
+
+        return (array)$output;
+    }
+
+    /**
      * Set NTLM curl options
      *
      * @param Curl $curl Curl handler
      * @param string $uri resource
      */
-    protected function setCurlOptions($curl, $uri)
+    protected function setCurlOptions($curl, $uri) : void
     {
         switch($this->authType) {
             case 'credentials':
@@ -66,6 +95,30 @@ class Client {
                 curl_setopt($curl, CURLOPT_UNRESTRICTED_AUTH, true);
                 curl_setopt($curl, CURLOPT_USERPWD, "$this->username:$this->password");
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            break;
+        }
+    }
+
+    /**
+     * Parse error response
+     *
+     * @param  stdClass $error
+     * @return void
+     * @throws RunTimeException
+     */
+    protected function parseError($error) : void
+    {
+        switch($error->code) {
+            case 'BadRequest_ResourceNotFound':
+                http_response_code(404);
+                throw new \RunTimeException('Resource not found');
+            break;
+            case 'BadRequest_NotFound':
+                http_response_code(404);
+                throw new \RunTimeException('Route not found');
+            break;
+            default:
+                throw new \RunTimeException($error->message);
             break;
         }
     }
