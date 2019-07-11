@@ -83,7 +83,9 @@ class Client {
      * Fetch one record from NAV
      *
      * @param  string $uri
-     * @return Collection|null
+     * @param  string $key
+     * @param  mixed $number
+     * @return arrayl
      */
     public function fetchOne(string $uri, string $key, $number) : array
     {
@@ -110,6 +112,7 @@ class Client {
      *
      * @param Curl $curl Curl handler
      * @param string $uri resource
+     * @return void
      */
     protected function setCurlOptions($curl, $uri) : void
     {
