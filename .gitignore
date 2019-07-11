@@ -1,0 +1,6 @@
+./vendor
+vendor/
+.phpintel/
+./.phpintel
+.idea/
+./.idea
