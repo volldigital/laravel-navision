@@ -43,11 +43,11 @@ class Client {
 
     public function __construct(array $config)
     {
-        $this->host     = rtrim($config['ntlm_host'], '/');
-        $this->authType = $config['ntlm_auth_type'];
-        $this->username = $config['ntlm_user'];
-        $this->password = $config['ntlm_password'];
-        $this->token    = $config['ntlm_token'];
+        $this->host     = rtrim($config['ntlm_host'] ?? '', '/');
+        $this->authType = $config['ntlm_auth_type'] ?? '';
+        $this->username = $config['ntlm_user'] ?? '';
+        $this->password = $config['ntlm_password'] ?? '';
+        $this->token    = $config['ntlm_token'] ?? '';
     }
 
     /**
@@ -114,8 +114,12 @@ class Client {
      * @param string $uri resource
      * @return void
      */
-    protected function setCurlOptions($curl, $uri) : void
+    protected function setCurlOptions($curl, string $uri) : void
     {
+        if (empty($this->host) || empty($this->username) || empty($this->password)) {
+            throw new \RunTimeException('No configuration given');
+        }
+
         switch($this->authType) {
             case 'credentials':
             default:
