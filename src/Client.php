@@ -66,6 +66,12 @@ class Client {
             curl_exec($curl)
         );
 
+        $err = curl_error($curl);
+
+        if (strlen($err) !== 0) {
+            throw new \RunTimeException($err);
+        }
+
         curl_close($curl);
 
         if (isset($output->error)) {
