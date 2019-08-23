@@ -166,4 +166,24 @@ class Client {
         }
     }
 
+    /**
+     * Ping URL
+     *
+     * @return bool
+     */
+    public function ping()
+    {
+        try {
+            $fs = fsockopen($this->host);
+        } catch(\Exception $e) {
+            return false;
+        }
+
+        if (!$fs) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
