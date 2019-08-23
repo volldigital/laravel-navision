@@ -48,8 +48,6 @@ class Client {
         $this->username = $config['ntlm_user'] ?? '';
         $this->password = $config['ntlm_password'] ?? '';
         $this->token    = $config['ntlm_token'] ?? '';
-
-        dd($this->ping());
     }
 
     /**
