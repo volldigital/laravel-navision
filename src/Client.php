@@ -48,6 +48,8 @@ class Client {
         $this->username = $config['ntlm_user'] ?? '';
         $this->password = $config['ntlm_password'] ?? '';
         $this->token    = $config['ntlm_token'] ?? '';
+
+        dd($this->ping());
     }
 
     /**
@@ -173,8 +175,10 @@ class Client {
      */
     public function ping()
     {
+        $host = str_replace(['http://', 'https://'], '', $this->host);
+
         try {
-            $fs = fsockopen($this->host);
+            $fs = fsockopen($host);
         } catch(\Exception $e) {
             return false;
         }
