@@ -1,4 +1,4 @@
-# Larave NTLM Package
+# Larave UNITOP Package
 
 ## Install
 
@@ -12,7 +12,7 @@ composer require volldigital/laravel-ntlm
 php artisan vendor:publish --provider="VOLLdigital\LaravelNtlm\LaravelNtlmServiceProvider"
 ```
 
-Edit your "config/ntlm.php" or use the ENV Vars.
+Edit your "config/ntlm.php" file or use the ENV variables.
 
 ## Usage
 
@@ -23,7 +23,7 @@ $client = app(VOLLdigital\LaravelNtlm\Client::class);
 
 ```
 
-Now you are ready to recieve data from your NAV System.
+Now you are ready to recieve data from your UNITOP System.
 
 Examples:
 
@@ -48,7 +48,7 @@ $data = $client->fetchCollection("Events", true);
 
 ```
 
-You want to check if your connection to NAV is established? You can use the ping function and check it :)
+You want to check if your connection to UNITOP is established? You can use the ping function and check it :)
 
 ```php
 
