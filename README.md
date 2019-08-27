@@ -9,10 +9,10 @@ composer require volldigital/laravel-ntlm
 ```
 
 ```php
-php artisan vendor:publish
+php artisan vendor:publish --provider="VOLLdigital\LaravelNtlm\LaravelNtlmServiceProvider"
 ```
 
-Publish the laravel-ntlm config file. Now you can setup your configuration for your NAV.
+Edit your "config/ntlm.php" or use the ENV Vars.
 
 ## Usage
 
@@ -33,5 +33,29 @@ $client = app(VOLLdigital\LaravelNtlm\Client::class);
 $data = $client->fetchCollection("Events");
 
 $event = $client->fetchOne("Events", 'Key', 'Number');
+
+```
+
+You can also pull data chunkswise. The data will be written in a text file and after the request finished it will be parsed and the file deleted.
+
+```php
+
+$client = app(VOLLdigital\LaravelNtlm\Client::class);
+
+// file be stored in /storage/app/temp/curl_uniqueid.temp
+
+$data = $client->fetchCollection("Events", true);
+
+```
+
+You want to check if your connection to NAV is established? You can use the ping function and check it :)
+
+```php
+
+$client = app(VOLLdigital\LaravelNtlm\Client::class);
+
+if (client->ping() === false) {
+    throw new RunTimeException('No connection available');
+}
 
 ```
