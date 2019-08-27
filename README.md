@@ -42,7 +42,7 @@ You can also pull data chunkswise. The data will be written in a text file and a
 
 $client = app(VOLLdigital\LaravelNtlm\Client::class);
 
-// file be stored in /storage/app/temp/curl_uniqueid.temp
+// file will be stored in /storage/app/temp/curl_uniqueid.temp
 
 $data = $client->fetchCollection("Events", true);
 
@@ -54,7 +54,7 @@ You want to check if your connection to NAV is established? You can use the ping
 
 $client = app(VOLLdigital\LaravelNtlm\Client::class);
 
-if (client->ping() === false) {
+if ($client->ping() === false) {
     throw new RunTimeException('No connection available');
 }
 
