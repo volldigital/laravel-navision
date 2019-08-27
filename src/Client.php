@@ -90,9 +90,8 @@ class Client {
 
         if ($chunk) {
             $output = json_decode(Storage::disk('local')->get($tempFile));
+            Storage::disk('local')->delete($tempFile);
         }
-
-        Storage::disk('local')->delete($tempFile);
 
         if (isset($output->error)) {
             $this->parseError($output->error);
