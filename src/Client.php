@@ -3,6 +3,7 @@
 namespace VOLLdigital\LaravelNtlm;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class Client {
 
@@ -54,13 +55,26 @@ class Client {
      * Fetch collection from NAV
      *
      * @param  string $uri
+     * @param  bool $chunk
      * @return Collection|null
      */
-    public function fetchCollection(string $uri) : ?Collection
+    public function fetchCollection(string $uri, bool $chunk = false) : ?Collection
     {
         $curl = curl_init();
 
         $this->setCurlOptions($curl, ltrim($uri, '/'));
+
+        if ($chunk) {
+            $tempFile = 'temp/curl_' . uniqid() . '.temp';
+
+            Storage::disk('local')->put($tempFile, '');
+
+            curl_setopt($curl, CURLOPT_WRITEFUNCTION, function(&$curl, $data) use($tempFile) {
+                Storage::disk('local')->append($tempFile, $data);
+
+                return strlen($data);
+            });
+        }
 
         $output = json_decode(
             curl_exec($curl)
@@ -73,6 +87,12 @@ class Client {
         }
 
         curl_close($curl);
+
+        if ($chunk) {
+            $output = json_decode(Storage::disk('local')->get($tempFile));
+        }
+
+        Storage::disk('local')->delete($tempFile);
 
         if (isset($output->error)) {
             $this->parseError($output->error);
