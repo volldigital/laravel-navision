@@ -1,4 +1,6 @@
-# Laravel UNITOP Package
+# Laravel Navision Package
+
+A small package to communicate with Microsoft Navision. You can fetch collections and single records.
 
 ## Install
 
@@ -23,7 +25,7 @@ $client = app(VOLLdigital\LaravelNtlm\Client::class);
 
 ```
 
-Now you are ready to recieve data from your UNITOP System.
+Now you are ready to recieve data from your Navision.
 
 Examples:
 
@@ -36,7 +38,7 @@ $event = $client->fetchOne("Events", 'Key', 'Number');
 
 ```
 
-You can also pull data chunkswise. The data will be written in a text file and after the request finished it will be parsed and the file deleted.
+You can also pull data chunk-wise. The data will be written in a text file and after the request finished, it will be parsed and deleted.
 
 ```php
 
