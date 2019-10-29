@@ -11,7 +11,7 @@ composer require volldigital/laravel-navision
 ```
 
 ```php
-php artisan vendor:publish --provider="VOLLdigital\LaravelNtlm\LaravelNtlmServiceProvider"
+php artisan vendor:publish --provider="VOLLdigital\LaravelNavision\LaravelNavisionServiceProvider"
 ```
 
 Edit your "config/ntlm.php" file or use the ENV variables.
@@ -21,7 +21,7 @@ Edit your "config/ntlm.php" file or use the ENV variables.
 After setting up your config, load the client via:
 
 ```php
-$client = app(VOLLdigital\LaravelNtlm\Client::class);
+$client = app(VOLLdigital\LaravelNavision\Client::class);
 
 ```
 
@@ -30,7 +30,7 @@ Now you are ready to recieve data from your Navision.
 Examples:
 
 ```php
-$client = app(VOLLdigital\LaravelNtlm\Client::class);
+$client = app(VOLLdigital\LaravelNavision\Client::class);
 
 $data = $client->fetchCollection("Events");
 
@@ -42,7 +42,7 @@ You can also pull data chunk-wise. The data will be written in a text file and a
 
 ```php
 
-$client = app(VOLLdigital\LaravelNtlm\Client::class);
+$client = app(VOLLdigital\LaravelNavision\Client::class);
 
 // file will be stored in /storage/app/temp/curl_uniqueid.temp
 
@@ -54,7 +54,7 @@ You want to check if your connection to UNITOP is established? You can use the p
 
 ```php
 
-$client = app(VOLLdigital\LaravelNtlm\Client::class);
+$client = app(VOLLdigital\LaravelNavision\Client::class);
 
 if ($client->ping() === false) {
     throw new RunTimeException('No connection available');
