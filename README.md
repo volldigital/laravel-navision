@@ -7,7 +7,7 @@ A small package to communicate with Microsoft Navision. You can fetch collection
 Run following commands:
 
 ```php
-composer require volldigital/laravel-ntlm
+composer require volldigital/laravel-navision
 ```
 
 ```php

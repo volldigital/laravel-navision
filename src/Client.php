@@ -1,6 +1,6 @@
 <?php
 
-namespace VOLLdigital\LaravelNtlm;
+namespace VOLLdigital\LaravelNavision;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;

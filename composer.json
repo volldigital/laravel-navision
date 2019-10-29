@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "VOLLdigital\\LaravelNtlm\\": "src/"
+            "VOLLdigital\\LaravelNavision\\": "src/"
         }
     },
     "autoload-dev": {
@@ -28,7 +28,7 @@
         },
         "laravel": {
             "providers": [
-                "VOLLdigital\\LaravelNtlm\\LaravelNtlmServiceProvider"
+                "VOLLdigital\\LaravelNavision\\LaravelNavisionServiceProvider"
             ]
         }
     }

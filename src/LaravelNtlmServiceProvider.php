@@ -1,10 +1,10 @@
 <?php
 
-namespace VOLLdigital\LaravelNtlm;
+namespace VOLLdigital\LaravelNavision;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelNtlmServiceProvider extends ServiceProvider {
+class LaravelNavisionServiceProvider extends ServiceProvider {
 
     public function boot()
     {
