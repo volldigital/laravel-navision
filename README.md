@@ -65,7 +65,7 @@ if ($client->ping() === false) {
 
 ## Write data
 
-Use `$client->writeData($url, $data);` to write data into unitop.
+Use `$client->writeData(string $url, array $data);` to write data into navision.
 
 Example:
 
