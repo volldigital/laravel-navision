@@ -4,3 +4,4 @@ vendor/
 ./.phpintel
 .idea/
 ./.idea
+index.php

@@ -61,3 +61,20 @@ if ($client->ping() === false) {
 }
 
 ```
+
+
+## Write data
+
+Use `$client->writeData($url, $data);` to write data into unitop.
+
+Example:
+
+```
+$client->writeData(
+    'Items',
+    [
+        'Item_Code' => 'VD',
+        'Item_Description' => 'Test data'
+    ]
+);
+```

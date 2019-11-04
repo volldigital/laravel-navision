@@ -110,7 +110,7 @@ class Client {
      * @param  string $uri
      * @param  string $key
      * @param  mixed $number
-     * @return arrayl
+     * @return array
      */
     public function fetchOne(string $uri, string $key, $number) : array
     {
@@ -130,6 +130,35 @@ class Client {
         }
 
         return (array)$output;
+    }
+
+    /**
+     * Write data to navision
+     *
+     * @param string $endpoint
+     * @param array $body
+     * @return void
+     */
+    public function writeData(string $endpoint, array $body)
+    {
+        $curl = curl_init();
+        $jsonData = json_encode($body);
+
+        $this->setCurlOptions($curl, ltrim($endpoint, '/'));
+
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($jsonData)
+        ]);
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        dd($response);
     }
 
     /**
