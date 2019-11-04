@@ -69,7 +69,7 @@ Use `$client->writeData($url, $data);` to write data into unitop.
 
 Example:
 
-```
+```php
 $client->writeData(
     'Items',
     [
