@@ -137,9 +137,9 @@ class Client {
      *
      * @param string $endpoint
      * @param array $body
-     * @return void
+     * @return array
      */
-    public function writeData(string $endpoint, array $body)
+    public function writeData(string $endpoint, array $body) : array
     {
         $curl = curl_init();
         $jsonData = json_encode($body);
@@ -158,7 +158,7 @@ class Client {
 
         curl_close($curl);
 
-        dd($response);
+        return (array)json_decode($response);
     }
 
     /**
