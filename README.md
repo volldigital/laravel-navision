@@ -78,3 +78,15 @@ $client->writeData(
     ]
 );
 ```
+
+## Count items 
+
+Use `$client->countCollection("YourCollection")` to recieve the amount of items in this collection.
+
+Example:
+
+```php
+
+dd($client->countCollection('Events')); // Outputs: 100293
+
+```
