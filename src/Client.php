@@ -52,6 +52,36 @@ class Client {
     }
 
     /**
+     * Fetch amount of items per collection from NAV
+     *
+     * @param  string $uri
+     * @param  bool $chunk
+     * @return Collection|null
+     */
+    public function countCollection(string $uri) : ?int
+    {
+        $curl = curl_init();
+
+        $uri = ltrim($uri, '/') . '/$count';
+
+        $this->setCurlOptions($curl, $uri);
+
+        $output = curl_exec($curl);
+
+        $err = curl_error($curl);
+
+        if (strlen($err) !== 0) {
+            throw new \RunTimeException($err);
+        }
+
+        curl_close($curl);
+
+        $output = (int)filter_var($output, FILTER_SANITIZE_NUMBER_INT);
+
+        return $output > 0 ? $output : null;
+    }
+
+    /**
      * Fetch collection from NAV
      *
      * @param  string $uri
