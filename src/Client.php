@@ -263,6 +263,8 @@ class Client {
             return false;
         }
 
+        fclose($fs);
+
         return true;
     }
 
