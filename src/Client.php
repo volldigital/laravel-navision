@@ -249,7 +249,7 @@ class Client {
      *
      * @return bool
      */
-    public function ping()
+    public function ping() : bool
     {
         $host = str_replace(['http://', 'https://'], '', $this->host);
 
