@@ -86,9 +86,7 @@ Use `$client->countCollection("YourCollection")` to recieve the amount of items 
 Example:
 
 ```php
-
 dd($client->countCollection('Events')); // Outputs: 100293
-
 ```
 
 ## Examples
