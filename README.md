@@ -112,3 +112,24 @@ dd($client->countCollection('Events')); // Outputs: 100293
         return collect($data);
     }
 ```
+
+### Pagination
+```php
+    protected function fetchAll()
+    {
+        $number = $this->client->countCollection('Events');
+        $pageLimit = 10000;
+        $pages = (int)ceil($number / $pageLimit);
+        $events = [];
+
+        for ($i = 0; $i < $pages; $i++) {
+            $skip = $i * $pageLimit;
+
+            $temp = $this->fetchData('Events?$skip='.$skip, 'Number');
+
+            $events = array_merge($events, $temp->toArray());
+        }
+
+        return collect($events);
+    }
+```
