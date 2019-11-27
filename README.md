@@ -99,7 +99,7 @@ dd($client->countCollection('Events')); // Outputs: 100293
 $temp = $this->client->fetchCollection('Events?$skip=10000');
 ```
 
-* $top=XXXX     - Only recieve X amount of items
+* $top=XXXX     - Recieve X amount of items
 
 ```php
 $temp = $this->client->fetchCollection('Events?$top=10');
