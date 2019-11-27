@@ -90,3 +90,25 @@ Example:
 dd($client->countCollection('Events')); // Outputs: 100293
 
 ```
+
+## Examples
+
+### Fetching data
+
+```php
+    protected function fetchData(string $uri, $key, bool $chunk = false, ?callable $filter = null)
+    {
+        $temp = $this->client->fetchCollection($uri, $chunk);
+        $data = [];
+
+        foreach($temp as $ts) {
+            if (!is_null($filter) && $filter($ts) === false) {
+                continue;
+            }
+
+            $data[$ts[$key]] = $ts;
+        }
+
+        return collect($data);
+    }
+```
