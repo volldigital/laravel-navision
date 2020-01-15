@@ -4,6 +4,7 @@ namespace VOLLdigital\LaravelNavision;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use RuntimeException;
 
 class Client {
 
@@ -184,7 +185,9 @@ class Client {
             'Content-Length: ' . strlen($jsonData)
         ]);
 
-        $response = curl_exec($curl);
+        if (($response = curl_exec($curl)) === false) {
+            throw new RuntimeException(curl_error($curl));
+        }
 
         curl_close($curl);
 
