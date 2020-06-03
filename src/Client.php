@@ -114,6 +114,8 @@ class Client {
         $err = curl_error($curl);
 
         if (strlen($err) !== 0) {
+            $err = $this->cleanUpCurlError($err);
+
             throw new \RunTimeException($err);
         }
 
@@ -186,12 +188,29 @@ class Client {
         ]);
 
         if (($response = curl_exec($curl)) === false) {
-            throw new RuntimeException(curl_error($curl));
+            $curlError = $this->cleanUpCurlError(curl_error($curl));
+
+            throw new RuntimeException($curlError);
         }
 
         curl_close($curl);
 
         return (array)json_decode($response);
+    }
+
+    /**
+     * Clean up curl error
+     *
+     * @param string $error
+     * @return void
+     */
+    protected function cleanUpCurlError($error) {
+        // hide url
+        if (strpos($curlError, 'Could not resolve host') !== false) {
+            return 'Could not resolve host';
+        }
+
+        return $error;
     }
 
     /**
