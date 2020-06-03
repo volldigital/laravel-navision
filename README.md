@@ -1,4 +1,4 @@
-# Laravel Navision Package
+# Laravel Navision Package (For Laravel V5.8 & 6.X)
 
 A small package to communicate with Microsoft Navision. You can fetch collections and single records.
 
