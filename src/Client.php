@@ -206,7 +206,7 @@ class Client {
      */
     protected function cleanUpCurlError($error) {
         // hide url
-        if (strpos($curlError, 'Could not resolve host') !== false) {
+        if (strpos($error, 'Could not resolve host') !== false) {
             return 'Could not resolve host';
         }
 
