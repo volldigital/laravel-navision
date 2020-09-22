@@ -195,7 +195,13 @@ class Client {
 
         curl_close($curl);
 
-        return (array)json_decode($response);
+        $response = (array)json_decode($response);
+
+        if (isset($response['error'])) {
+            throw new RuntimeException($response['error']->message);
+        }
+
+        return $response;
     }
 
     /**
