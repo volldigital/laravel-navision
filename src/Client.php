@@ -6,6 +6,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use RuntimeException;
 
+use VOLLdigital\LaravelNavision\Exceptions\UnitopUnavailableException;
+use VOLLdigital\LaravelNavision\Exceptions\UnitopValidationException;
+
 class Client {
 
     /**
@@ -190,7 +193,7 @@ class Client {
         if (($response = curl_exec($curl)) === false) {
             $curlError = $this->cleanUpCurlError(curl_error($curl));
 
-            throw new RuntimeException($curlError);
+            throw new UnitopUnavailableException($curlError);
         }
 
         curl_close($curl);
@@ -198,7 +201,7 @@ class Client {
         $response = (array)json_decode($response);
 
         if (isset($response['error'])) {
-            throw new RuntimeException($response['error']->message);
+            throw new UnitopValidationException($response['error']->message);
         }
 
         return $response;
@@ -208,7 +211,7 @@ class Client {
      * Clean up curl error
      *
      * @param string $error
-     * @return void
+     * @return string
      */
     protected function cleanUpCurlError($error) {
         // hide url
