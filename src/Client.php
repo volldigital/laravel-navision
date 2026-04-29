@@ -196,6 +196,12 @@ class Client {
             throw new UnitopUnavailableException($curlError);
         }
 
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        if (in_array($code, [401, 403, 404, 502, 503, 504], true)) {
+            throw new UnitopUnavailableException("Unitop Error Code: {$code}");
+        }
+
         curl_close($curl);
 
         $response = (array)json_decode($response);
